@@ -6,19 +6,25 @@ import {HttpModule} from '@angular/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { HomePageComponent } from './pages/home-page/home-page.component';
+import {HomePageComponent} from './pages/home-page/home-page.component';
+import {SecondPageComponent} from './pages/second-page/second-page.component';
+import {MainMenuComponent} from './components/main-menu/main-menu.component';
+import {DataModule} from "./modules/data/data.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    SecondPageComponent,
+    MainMenuComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    DataModule
   ],
   providers: [],
   bootstrap: [AppComponent]
