@@ -2,4 +2,4 @@
 Force Push Team iTec repo
 
 
-Dead statistics app
+Death statistics app
