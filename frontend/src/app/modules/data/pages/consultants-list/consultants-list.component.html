@@ -1,3 +1,23 @@
-<p>
-  consultants-list works!
-</p>
+<h2>Listă consultanți</h2>
+
+<table class="table">
+  <thead class="thead-default">
+  <tr>
+    <th>#</th>
+    <th *ngFor="let column of columns">{{column.title}}</th>
+    <th>Acțiuni</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let consultant of consultants; let i = index">
+    <td>{{i+1}}</td>
+    <td *ngFor="let field of columns">{{format(consultant, field)}}</td>
+    <td>
+      <button class="btn btn-outline-primary view"
+              (click)="consultantDetails(consultant)">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>

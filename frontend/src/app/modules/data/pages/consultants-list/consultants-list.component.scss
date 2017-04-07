@@ -1,0 +1,19 @@
+.btn.view {
+  cursor: pointer;
+}
+
+.table tr td {
+  vertical-align: middle;
+}
+.table {
+  tr:nth-child(2n+1) {
+    background: #ffffff;
+  }
+  tr:nth-child(2n) {
+    background: #f8f8f8;
+  }
+  tr:hover {
+    background: #f0f0f0;
+  }
+}
+
