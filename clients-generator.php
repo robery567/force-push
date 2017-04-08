@@ -28,7 +28,7 @@ foreach ($consultants as $consultantData) {
 
         $reviewSent = rand(0, 1);
         file_put_contents("clients.sql", "INSERT INTO `consultants_clients` (`parent_id`, `client_name`, `review_sent`) 
-                            VALUES ('{$consultantData['id']}', '{$clientName}', $reviewSent)\n", FILE_APPEND | LOCK_EX);
+                            VALUES ('{$consultantData['id']}', '{$clientName}', $reviewSent);\n", FILE_APPEND | LOCK_EX);
 
 //        $client = $DB->query("SELECT *
 //                                        FROM `consultants_clients`
