@@ -169,6 +169,25 @@ $app->get('/search/name', function (Request $request) use ($app) {
     return $app->json($data);
 })->bind('searchByName');
 
+$app->get('/get/reviews', function (Request $request) use ($app) {
+    $sql = "SELECT 
+                    `cc`.`parent_id` AS `parent_id`,
+                    `cc`.`client_id` AS `client_id`,
+                    `cc`.`client_name` AS `client_name`,
+                    `cr`.`score` AS `score`
+                    FROM `consultants_clients` `cc`
+                    JOIN `clients_reviews` `cr`
+                      ON `cr`.`client_id` = `cc`.`client_id`
+                    WHERE 
+                          `cc`.`review_sent` = 1
+                      AND `cc`.`parent_id` = ?";
+
+    $consultantId = $request->query->get('id');
+    $data = $app['db']->fetchAll($sql, $consultantId);
+
+    return $app->json($data);
+})->bind('get_reviews');
+
 $app->after(function (Request $request, Response $response) {
     $response->headers->set('Access-Control-Allow-Origin', '*');
 });
