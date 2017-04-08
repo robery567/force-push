@@ -18,7 +18,14 @@ $app->get('/get/specializations', function () use ($app) {
     $data = $app['db']->fetchAll($sql);
 
     return $app->json($data);
-});
+}) -> bind('get_specializations');
+
+$app->get('/get/counties', function () use ($app) {
+    $sql = "SELECT * FROM counties";
+    $data = $app['db']->fetchAll($sql);
+
+    return $app->json($data);
+}) -> bind('get_counties');
 
 $app->after(function (Request $request, Response $response) {
     $response->headers->set('Access-Control-Allow-Origin', '*');
