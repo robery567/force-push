@@ -1,5 +1,5 @@
-# force-push
+# Consultants Repository
 Force Push Team iTec repo
 
 
-Death statistics app
+Consultants app
