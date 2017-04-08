@@ -3,6 +3,11 @@ import {Consultant} from "../../models/consultant";
 import {ConsultantsService} from "../../services/consultants.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ConsultantDetailsComponent} from "../../components/consultants-details/consultant-details.component";
+import {Specialization} from "app/modules/data/models/specialization";
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'app-consultants-list',
@@ -15,14 +20,20 @@ export class ConsultantsListComponent implements OnInit {
 
   private consultants: Consultant[] = [];
 
+  private specializations: Specialization[] = [];
+  private model: string;
+
   constructor(private consultantsService: ConsultantsService,
               private modalService: NgbModal) {
     this.buildTable();
   }
 
   ngOnInit() {
-    this.consultantsService.getAll().subscribe((data) => {
+    this.consultantsService.getAll().subscribe(data => {
       this.consultants = data;
+    });
+    this.consultantsService.getSpecializations().subscribe(data => {
+      this.specializations = data;
     });
   }
 
@@ -73,6 +84,20 @@ export class ConsultantsListComponent implements OnInit {
     }
     return value;
   }
+
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => {
+          const x = term.length < 2 ? []
+            : this.specializations.filter(v => new RegExp(term, 'gi').test(v.name)).splice(0, 10).map(spec => {
+              return spec.name;
+            });
+          console.log(x);
+          return x;
+        }
+      );
 }
 
 class TableColumn {

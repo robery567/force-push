@@ -5,12 +5,17 @@ import {Chart1Component} from './pages/chart-1/chart-1.component';
 import {ChartComponent} from "app/modules/data/components/chart/chart.component";
 import {ChartsModule} from "ng2-charts";
 import {ConsultantsService} from "./services/consultants.service";
-import { ConsultantDetailsComponent } from './components/consultants-details/consultant-details.component';
+import {ConsultantDetailsComponent} from './components/consultants-details/consultant-details.component';
+import {FormsModule} from "@angular/forms";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+
 
 @NgModule({
   imports: [
     CommonModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule,
+    NgbModule
   ],
   declarations: [
     ConsultantsListComponent,

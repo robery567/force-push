@@ -10,6 +10,7 @@ import {HomePageComponent} from './pages/home-page/home-page.component';
 import {SecondPageComponent} from './pages/second-page/second-page.component';
 import {MainMenuComponent} from './components/main-menu/main-menu.component';
 import {DataModule} from "./modules/data/data.module";
+import {ConstantsService} from "./services/constants.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import {DataModule} from "./modules/data/data.module";
     NgbModule.forRoot(),
     DataModule
   ],
-  providers: [],
+  providers: [
+    ConstantsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
