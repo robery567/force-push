@@ -8,6 +8,8 @@ import {ConsultantsService} from "./services/consultants.service";
 import {ConsultantDetailsComponent} from './components/consultants-details/consultant-details.component';
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { ConstultantsMapComponent } from './pages/constultants-map/constultants-map.component';
+import {AgmCoreModule} from "angular2-google-maps/core";
 
 
 @NgModule({
@@ -15,13 +17,15 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     CommonModule,
     ChartsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    AgmCoreModule
   ],
   declarations: [
     ConsultantsListComponent,
     Chart1Component,
     ChartComponent,
-    ConsultantDetailsComponent
+    ConsultantDetailsComponent,
+    ConstultantsMapComponent
   ],
   providers: [
     ConsultantsService
