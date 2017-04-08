@@ -97,7 +97,7 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
                   FROM `cities`
                   WHERE county_id = ?";
 
-        $data[$consultandId]['city'] = $app['db']->fetchAll($sql, array((int)$data[$consultandId]['counties'][0]));
+        $data[$consultandId]['city'] = $app['db']->fetchAll($sql, array((int)$data[$consultandId]['counties'][0]['id']));
     }
 
     return $app->json($data);
