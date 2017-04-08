@@ -167,7 +167,7 @@ $app->get('/search/name', function (Request $request) use ($app) {
     }
 
     return $app->json($data);
-})->bind('get_counties');
+})->bind('searchByName');
 
 $app->after(function (Request $request, Response $response) {
     $response->headers->set('Access-Control-Allow-Origin', '*');
