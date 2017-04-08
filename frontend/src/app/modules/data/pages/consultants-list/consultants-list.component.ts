@@ -36,7 +36,12 @@ export class ConsultantsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.consultantsService.getAll().subscribe(data => {
+    this.consultantsService.getConsultants({
+      start: 0,
+      count: 15,
+      county: "170",
+      specialization: "429"
+    }).subscribe(data => {
       this.consultants = data;
       // this.openMap(this.consultants[0]);
     });
@@ -67,7 +72,8 @@ export class ConsultantsListComponent implements OnInit {
     // });
     this.columns.push({
       title: "Specializări",
-      key: "specializations"
+      key: "specializations",
+      "hidden-md-down": true
     });
   }
 
@@ -119,14 +125,14 @@ export class ConsultantsListComponent implements OnInit {
   }
 
   public doSearch() {
-    const model: any = {start: 0, count: 15};
+    const model: any = {start: 0, count: 100};
     if (this.selectedCounty) {
       model.county = this.selectedCounty.id;
     }
     if (this.selectedSpecialization) {
       model.specialization = this.selectedSpecialization.id;
-
     }
+
     this.consultantsService.getConsultants(model).subscribe(data => {
       this.consultants = data;
       console.log(data);
@@ -175,4 +181,5 @@ export class ConsultantsListComponent implements OnInit {
 class TableColumn {
   title: string;
   key: string;
+  "hidden-md-down"?: boolean;
 }

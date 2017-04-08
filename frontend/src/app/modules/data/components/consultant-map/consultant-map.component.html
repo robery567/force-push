@@ -6,26 +6,39 @@
     </button>
   </div>
   <div class="modal-body" *ngIf="consultant">
-    <div>{{me | json}}</div>
+
     <sebm-google-map [latitude]="target.lat" [longitude]="target.lng" [zoom]="zoom" class="map">
       <sebm-google-map-marker [latitude]="target.lat"
                               [longitude]="target.lng"
                               [draggable]="true"
                               [title]="'12333'"
-                              [iconUrl]="'assets/map/icon-2-small.png'">
+                              [zIndex]="1000"
+                              [iconUrl]="'assets/map/marker-red-50.png'">
       </sebm-google-map-marker>
-      <sebm-google-map-marker [latitude]="me.lat"
+      <sebm-google-map-marker
+                              *ngIf="me"
+                              [latitude]="me.lat"
                               [longitude]="me.lng"
                               [draggable]="true"
                               [title]="'tu'"
-                              [iconUrl]="'assets/map/icon-3-small.png'">
+                              [zIndex]="1000"
+                              [iconUrl]="'assets/map/marker-green-50.png'">
       </sebm-google-map-marker>
+
+      <sebm-google-map-directions [origin]="me" [destination]="target"></sebm-google-map-directions>
     </sebm-google-map>
+    <div class="card" [hidden]="!directionsVisible">
+      <div class="card-block">
+        <div id="directionsPanel" class="directionsPanel"></div>
+      </div>
+    </div>
   </div>
   <div class="modal-body" *ngIf="!consultant">
     Loading ...
   </div>
+
   <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="toggleDirections()">Direcții de orientare</button>
     <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>
   </div>
 

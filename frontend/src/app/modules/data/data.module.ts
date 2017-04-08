@@ -8,9 +8,10 @@ import {ConsultantsService} from "./services/consultants.service";
 import {ConsultantDetailsComponent} from './components/consultants-details/consultant-details.component';
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { ConstultantsMapComponent } from './pages/constultants-map/constultants-map.component';
+import {ConstultantsMapComponent} from './pages/constultants-map/constultants-map.component';
 import {AgmCoreModule} from "angular2-google-maps/core";
-import { ConsultantMapComponent } from './components/consultant-map/consultant-map.component';
+import {ConsultantMapComponent} from './components/consultant-map/consultant-map.component';
+import { DirectionsMapDirective } from './directives/directions-map.directive';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ConsultantMapComponent } from './components/consultant-map/consultant-m
     ChartComponent,
     ConsultantDetailsComponent,
     ConstultantsMapComponent,
-    ConsultantMapComponent
+    ConsultantMapComponent,
+    DirectionsMapDirective
   ],
   providers: [
     ConsultantsService
