@@ -1,0 +1,32 @@
+<div class="padding">
+  <div class="modal-header">
+    <h4 class="modal-title">Consultant <b>{{consultant.name}}</b></h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="consultant">
+    <div>{{me | json}}</div>
+    <sebm-google-map [latitude]="target.lat" [longitude]="target.lng" [zoom]="zoom" class="map">
+      <sebm-google-map-marker [latitude]="target.lat"
+                              [longitude]="target.lng"
+                              [draggable]="true"
+                              [title]="'12333'"
+                              [iconUrl]="'assets/map/icon-2-small.png'">
+      </sebm-google-map-marker>
+      <sebm-google-map-marker [latitude]="me.lat"
+                              [longitude]="me.lng"
+                              [draggable]="true"
+                              [title]="'tu'"
+                              [iconUrl]="'assets/map/icon-3-small.png'">
+      </sebm-google-map-marker>
+    </sebm-google-map>
+  </div>
+  <div class="modal-body" *ngIf="!consultant">
+    Loading ...
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+
+</div>

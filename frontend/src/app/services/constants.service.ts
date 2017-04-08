@@ -6,6 +6,6 @@ export class ConstantsService {
   constructor() { }
 
   public getBackendUri() {
-    return "http://url123";
+    return "http://api2.robery.eu/";
   }
 }

@@ -1,26 +1,80 @@
-<h2 class="page-title">Listă consultanți</h2>
-<input type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
-<hr>
-<pre>Model: {{ model | json }}</pre>
+<template #rt let-r="result" let-t="term">
+  {{r.name}}
+</template>
 
-<table class="table">
-  <thead class="thead-default">
-  <tr>
-    <th>#</th>
-    <th *ngFor="let column of columns">{{column.title}}</th>
-    <th>Acțiuni</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let consultant of consultants; let i = index">
-    <td>{{i+1}}</td>
-    <td *ngFor="let field of columns">{{format(consultant, field)}}</td>
-    <td>
-      <button class="btn btn-outline-primary view"
-              (click)="consultantDetails(consultant)">
-        <i class="fa fa-eye" aria-hidden="true"></i>
-      </button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+
+<h2 class="page-title">Listă consultanți</h2>
+<div class="row">
+  <div class="col-sm-10 col-md-8 col-xl-5">
+    <div class="row form-group">
+      <label for="specInput" class="col-form-label">Specializare:</label>
+      <div class="col-sm-9">
+        <input type="text"
+               id="specInput"
+               class="form-control"
+               placeholder=""
+               [(ngModel)]="modelSpecialization"
+               [ngbTypeahead]="searchSpecialization"
+               (selectItem)="specializationSelected($event)"
+               [resultTemplate]="rt"
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-10 col-md-8 col-xl-5">
+    <div class="row form-group">
+      <label for="countyInput" class="col-form-label">Județ:</label>
+      <div class="col-sm-9">
+        <input type="text"
+               id="countyInput"
+               class="form-control"
+               placeholder=""
+               [(ngModel)]="modelCounty"
+               [ngbTypeahead]="searchCounty"
+               (selectItem)="countySelected($event)"
+               [resultTemplate]="rt"
+        >
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-2">
+    <button class="btn btn-primary" (click)="doSearch()">Caută</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-block">
+    <table class="table">
+      <thead class="thead-default">
+      <tr>
+        <th>#</th>
+        <th *ngFor="let column of columns">{{column.title}}</th>
+        <th>Acțiuni</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let consultant of consultants; let i = index">
+        <td>{{i+1}}</td>
+        <td *ngFor="let field of columns">{{format(consultant, field)}}</td>
+        <td>
+          <div style="min-width: 200px;">
+            <button class="btn btn-outline-primary view"
+                    (click)="consultantDetails(consultant)">
+              <i class="fa fa-info" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-outline-primary view"
+                    (click)="openMap(consultant)">
+              <i class="fa fa-map-o" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-outline-primary view hidden-md-up"
+                    (click)="consultantDetails(consultant)">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

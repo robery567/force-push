@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { ConstultantsMapComponent } from './pages/constultants-map/constultants-map.component';
 import {AgmCoreModule} from "angular2-google-maps/core";
+import { ConsultantMapComponent } from './components/consultant-map/consultant-map.component';
 
 
 @NgModule({
@@ -25,13 +26,15 @@ import {AgmCoreModule} from "angular2-google-maps/core";
     Chart1Component,
     ChartComponent,
     ConsultantDetailsComponent,
-    ConstultantsMapComponent
+    ConstultantsMapComponent,
+    ConsultantMapComponent
   ],
   providers: [
     ConsultantsService
   ],
   entryComponents: [
-    ConsultantDetailsComponent
+    ConsultantDetailsComponent,
+    ConsultantMapComponent
   ],
   exports: [ConsultantsListComponent]
 })

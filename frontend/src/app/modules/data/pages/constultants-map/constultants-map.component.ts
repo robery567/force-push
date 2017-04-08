@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-constultants-map',
@@ -7,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConstultantsMapComponent implements OnInit {
 
-  title = 'My first angular2-google-maps project';
-  lat = 51.678418;
-  lng = 7.809007;
+  private me: { lat: number, lng: number };
+  private lat = 45.874654;
+  private lng = 24.751460;
+  private zoom = 7;
 
-  constructor() { }
+  constructor() {
+    this.me = {lat: this.lat, lng: this.lng};
+  }
 
   ngOnInit() {
   }

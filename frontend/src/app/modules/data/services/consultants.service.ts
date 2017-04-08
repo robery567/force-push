@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {ConstantsService} from "../../../services/constants.service";
 import {specializations} from "./mockSpecializations";
 import {Specialization} from "../models/specialization";
+import {consultants} from "./mock.consultants";
 
 @Injectable()
 export class ConsultantsService {
@@ -17,7 +18,30 @@ export class ConsultantsService {
   }
 
   public getSpecializations(): Observable<Specialization[]> {
-    return this.getSpecializationsMock();
+    const url = `${this.constants.getBackendUri()}get/specializations`;
+    return this.http.get(url).map(resp => resp.json());
+  }
+
+  public getCounties(): Observable<Specialization[]> {
+    const url = `${this.constants.getBackendUri()}get/counties`;
+    return this.http.get(url).map(resp => resp.json());
+  }
+
+  public getConsultants(model: any): Observable<Consultant[]> {
+    // http://api2.robery.eu/get/consultants?specialization=425&county=165&start=1&count=10
+    let url = `${this.constants.getBackendUri()}get/consultants?`;
+    for (const prop in model) {
+      if (!model.hasOwnProperty(prop)) {
+        continue;
+      }
+      url += `${prop}=${model[prop]}&`;
+    }
+    return this.http.get(url).map(resp => {
+      const consultants = resp.json();
+
+      this.normalizeConsultants(consultants);
+      return consultants;
+    });
   }
 
   private getSpecializationsMock(): Observable<Specialization[]> {
@@ -25,29 +49,41 @@ export class ConsultantsService {
 
     return Observable.create(observer => {
       setTimeout(() => {
-        observer.next(specs);
+        // observer.next(specs);
+        observer.next([]);
       }, 250);
     });
   }
 
   private getAllMock(): Observable<Consultant[]> {
-    const consultants: Consultant[] = [];
-    for (let i = 0; i < 10; i++) {
-      consultants.push({
-        name: `Nume ${i}`,
-        phones: [`975323223${i}`, `0752333${i}`],
-        county: `Județ ${i}`,
-        legitimation: `3423 3434 ${i}`,
-        specializations: ["O specializare", "Altă specializare"],
-      });
-    }
+    const consults: any[] = consultants;
+    this.normalizeConsultants(consults);
 
     const observable = Observable.create(observer => {
       setTimeout(() => {
-        observer.next(consultants);
+        observer.next(consults);
       }, 250);
     });
     return observable;
   }
 
+  private normalizeConsultants(consultants: any[]): void {
+
+    consultants.forEach(consultant => {
+      try {
+        if (consultant.telephone) {
+          consultant.phones = consultant.telephone.split(/[,;]/);
+          for (let i = 0; i < consultant.phones.length; i++) {
+            consultant.phones[i] = consultant.phones[i].trim();
+          }
+          delete consultant.telephone;
+        }
+        for (let i = 0; i < consultant.specializations.length; i++) {
+          consultant.specializations[i].name = consultant.specializations[i].name.replace(/\( /, '(');
+        }
+      } catch (exc) {
+        console.log(exc);
+      }
+    });
+  }
 }
