@@ -183,7 +183,7 @@ $app->get('/get/reviews', function (Request $request) use ($app) {
                       AND `cc`.`parent_id` = ?";
 
     $consultantId = $request->query->get('id');
-    $data = $app['db']->fetchAll($sql, $consultantId);
+    $data = $app['db']->fetchAll($sql, array((int)$consultantId));
 
     return $app->json($data);
 })->bind('get_reviews');
