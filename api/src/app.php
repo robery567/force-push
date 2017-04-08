@@ -12,14 +12,14 @@ $app->register(new AssetServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new HttpFragmentServiceProvider());
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'db.options' => array(
+    'dbs.options' => array(
         'mysql_read' => array(
             'driver'    => 'pdo_mysql',
-            'host'      => $app['mysql']['hostname'],
-            'dbname'    => $app['mysql']['database'],
-            'user'      => $app['mysql']['username'],
-            'password'  => $app['mysql']['password'],
-            'charset'   => $app['mysql']['charset'],
+            'host'      => 'localhost',
+            'dbname'    => 'consulting',
+            'user'      => 'root',
+            'password'  => '',
+            'charset'   => 'utf8mb4'
         )
     ),
 ));

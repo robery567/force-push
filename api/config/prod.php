@@ -4,11 +4,5 @@
 
 $app['twig.path'] = array(__DIR__ . '/../templates');
 $app['twig.options'] = array('cache' => __DIR__ . '/../var/cache/twig');
-
-$app['mysql'] = array(
-    'hostname' => "localhost",
-    'username' => "root",
-    'password' => "",
-    'database' => "consulting",
-    'charset' => 'utf8mb4'
-);
+// Enable debug mode
+$app['debug'] = true;

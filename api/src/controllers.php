@@ -14,7 +14,10 @@ $app->get('/', function () use ($app) {
     ->bind('homepage');
 
 $app->get('/get/specializations', function () use ($app) {
+    $sql = "SELECT * FROM specializations";
+    $data = $app['db']->fetchAll($sql);
 
+    return $app->json($data);
 });
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
