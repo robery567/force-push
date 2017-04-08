@@ -18,7 +18,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
             'host'      => 'localhost',
             'dbname'    => 'consulting',
             'user'      => 'root',
-            'password'  => '',
+            'password'  => 'parola',
             'charset'   => 'utf8mb4'
         )
     ),
