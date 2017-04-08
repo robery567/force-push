@@ -9,7 +9,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 //Request::setTrustedProxies(array('127.0.0.1'));
 
 $app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html.twig', array());
+    $data = [
+        "message" => "welcome"
+    ];
+
+    return $app->json($data);
 })
     ->bind('homepage');
 
@@ -61,7 +65,7 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
         array_push($sqlParameters, $county);
     }
 
-    if (!empty($offset) && !empty($count)) {
+    if ($offset && !empty($count)) {
         $sql .= " LIMIT {$offset}, {$count}";
     }
 
