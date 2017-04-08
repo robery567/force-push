@@ -95,7 +95,8 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
                        `latitude`,
                        `longitude`
                   FROM `cities`
-                  WHERE county_id = ?";
+                  WHERE county_id = ?
+                  AND `county_seat` = 1";
 
         $data[$consultandId]['city'] = $app['db']->fetchAll($sql, array((int)$data[$consultandId]['counties'][0]['id']));
     }
