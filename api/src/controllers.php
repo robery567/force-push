@@ -65,7 +65,7 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
         array_push($sqlParameters, $county);
     }
 
-    if ($offset && !empty($count)) {
+    if ($offset >= 0 && !empty($count)) {
         $sql .= " LIMIT {$offset}, {$count}";
     }
 
