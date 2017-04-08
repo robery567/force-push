@@ -90,7 +90,14 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
                           ON `s`.`id` = `cs`.`specialization_id`
                         WHERE `cs`.`parent_id` = ?";
 
-        $data[$consultandId]['specializations'] = $app['db']->fetchAll($sql, array((int)$consultantData['id']));
+        $sql = "SELECT
+                       `name`,
+                       `latitude`,
+                       `longitude`
+                  FROM `cities`
+                  WHERE county_id = ?";
+
+        $data[$consultandId]['city'] = $app['db']->fetchAll($sql, array((int)$data[$consultandId]['counties'][0]));
     }
 
     return $app->json($data);
