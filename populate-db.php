@@ -18,7 +18,7 @@ if (($handle = fopen("data.csv", "r")) !== FALSE) {
     //$parsedData = json_encode($parsedData);
     fclose($handle);
 
-    $DB = new MySQLi("188.166.165.16", "root", "macac123", "consulting");
+    $DB = new MySQLi("localhost", "root", "", "consulting");
 
     $isFirstLoop = true;
 //    $counter = 0;
