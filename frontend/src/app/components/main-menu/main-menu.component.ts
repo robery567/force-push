@@ -19,15 +19,15 @@ export class MainMenuComponent implements OnInit {
   private buildMenu() {
     const homeMenuItem: MenuItem = {
       title: "Acasă",
-      routerLink: ["home"]
+      routerLink: ["/home"]
     };
     const consultantsList: MenuItem = {
       title: "Listă consultanți",
-      routerLink: ["list"]
+      routerLink: ["/list"]
     };
     const consultantsMap: MenuItem = {
       title: "Hartă consultanți",
-      routerLink: ["map"]
+      routerLink: ["/map"]
     };
     this.menuItems.push(homeMenuItem);
     this.menuItems.push(consultantsList);

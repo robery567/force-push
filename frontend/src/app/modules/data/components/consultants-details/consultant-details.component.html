@@ -1,42 +1,50 @@
-<div class="modal-header">
-  <h4 class="modal-title">Consultant <b>{{consultant.name}}</b></h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body" *ngIf="consultant">
-  <div class="row">
-    <div class="col-sm-6">Nume:</div>
-    <div class="col-sm-6">{{consultant.name}}</div>
+<div class="padding">
+  <div class="modal-header">
+    <h4 class="modal-title">Consultant <b>{{consultant.name}}</b></h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-  <div class="row">
-    <div class="col-sm-6">Telefon:</div>
-    <div class="col-sm-6">
-      <div *ngFor="let phone of consultant.phones">
-        <a href="tel:{{phone}}">{{phone}}</a>
+  <div class="modal-body" *ngIf="consultant">
+    <div class="row">
+      <div class="col-sm-4">Nume:</div>
+      <div class="col-sm-8">{{consultant.name}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">Telefon:</div>
+      <div class="col-sm-8">
+        <div *ngFor="let phone of consultant.phones">
+          <a href="tel:{{phone}}">{{phone}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">Județ:</div>
+      <div class="col-sm-8">
+        <div *ngFor="let county of consultant.counties">
+          {{county.name}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">Nr. Legitimație:</div>
+      <div class="col-sm-8">{{consultant.legitimation}}</div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">Specializări:</div>
+      <div class="col-sm-8">
+        <div *ngFor="let specialization of consultant.specializations">
+          {{specialization.name}}
+        </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-6">Județ:</div>
-    <div class="col-sm-6">{{consultant.county}}</div>
+  <div class="modal-body" *ngIf="!consultant">
+    Loading ...
   </div>
-  <div class="row">
-    <div class="col-sm-6">Nr. Legitimație:</div>
-    <div class="col-sm-6">{{consultant.legitimation}}</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Închide</button>
+    <button type="button" class="btn btn-secondary" (click)="openMap()">Vezi pe hartă</button>
   </div>
-  <div class="row">
-    <div class="col-sm-6">Specializări:</div>
-    <div class="col-sm-6">
-      <div *ngFor="let specialization of consultant.specializations">
-        {{specialization}}
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal-body" *ngIf="!consultant">
-  Loading ...
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>
+
 </div>
