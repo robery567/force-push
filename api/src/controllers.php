@@ -20,6 +20,10 @@ $app->get('/get/specializations', function () use ($app) {
     return $app->json($data);
 });
 
+$app->after(function (Request $request, Response $response) {
+    $response->headers->set('Access-Control-Allow-Origin', '*');
+});
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
