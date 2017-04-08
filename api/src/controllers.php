@@ -14,14 +14,14 @@ $app->get('/', function () use ($app) {
     ->bind('homepage');
 
 $app->get('/get/specializations', function () use ($app) {
-    $sql = "SELECT * FROM specializations";
+    $sql = "SELECT * FROM specializations ORDER BY name ASC";
     $data = $app['db']->fetchAll($sql);
 
     return $app->json($data);
 }) -> bind('get_specializations');
 
 $app->get('/get/counties', function () use ($app) {
-    $sql = "SELECT * FROM counties";
+    $sql = "SELECT * FROM counties ORDER BY name ASC";
     $data = $app['db']->fetchAll($sql);
 
     return $app->json($data);
