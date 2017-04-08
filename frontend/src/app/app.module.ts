@@ -11,6 +11,7 @@ import {SecondPageComponent} from './pages/second-page/second-page.component';
 import {MainMenuComponent} from './components/main-menu/main-menu.component';
 import {DataModule} from "./modules/data/data.module";
 import {ConstantsService} from "./services/constants.service";
+import {AgmCoreModule} from "angular2-google-maps/core";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {ConstantsService} from "./services/constants.service";
     HttpModule,
     AppRoutingModule,
     NgbModule.forRoot(),
-    DataModule
+    DataModule,
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyDhynj53iQ21EgQIwu-pf2JPRaP3dcF048'})
   ],
   providers: [
     ConstantsService

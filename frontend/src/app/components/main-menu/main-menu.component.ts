@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MainMenuComponent implements OnInit {
   private menuItems: MenuItem[] = [];
+  private menuVisible = false;
 
   constructor() {
     this.buildMenu();
@@ -15,7 +16,7 @@ export class MainMenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  buildMenu() {
+  private buildMenu() {
     const homeMenuItem: MenuItem = {
       title: "Acasă",
       routerLink: ["home"]
@@ -24,10 +25,18 @@ export class MainMenuComponent implements OnInit {
       title: "Listă consultanți",
       routerLink: ["list"]
     };
+    const consultantsMap: MenuItem = {
+      title: "Hartă consultanți",
+      routerLink: ["map"]
+    };
     this.menuItems.push(homeMenuItem);
     this.menuItems.push(consultantsList);
+    this.menuItems.push(consultantsMap);
   }
 
+  public toggleMenu() {
+    this.menuVisible = !this.menuVisible;
+  }
 }
 
 class MenuItem {
