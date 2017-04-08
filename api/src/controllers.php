@@ -11,8 +11,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.html.twig', array());
 })
-->bind('homepage')
-;
+    ->bind('homepage');
+
+$app->get('/get/specializations', function () use ($app) {
+
+});
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
@@ -21,9 +24,9 @@ $app->error(function (\Exception $e, Request $request, $code) use ($app) {
 
     // 404.html, or 40x.html, or 4xx.html, or error.html
     $templates = array(
-        'errors/'.$code.'.html.twig',
-        'errors/'.substr($code, 0, 2).'x.html.twig',
-        'errors/'.substr($code, 0, 1).'xx.html.twig',
+        'errors/' . $code . '.html.twig',
+        'errors/' . substr($code, 0, 2) . 'x.html.twig',
+        'errors/' . substr($code, 0, 1) . 'xx.html.twig',
         'errors/default.html.twig',
     );
 
