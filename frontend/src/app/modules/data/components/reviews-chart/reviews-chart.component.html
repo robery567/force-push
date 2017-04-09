@@ -1,0 +1,51 @@
+<div>
+  <div style="display: block">
+    <div class="card">
+      <div class="sub-title">Număr de note:</div>
+      <canvas baseChart #unChart
+              *ngIf="canvasVisible"
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"
+              [colors]="barChartColors"
+      ></canvas>
+    </div>
+    <div class="card">
+      <div class="sub-title">Evoluția mediei notelor:</div>
+      <canvas baseChart width="400" height="200"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+    <div class="card">
+      <div class="sub-title">Evoluția numărului de clienți:</div>
+      <canvas baseChart width="400" height="200"
+              [datasets]="lineChartData2"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+  <!--<canvas baseChart-->
+  <!--*ngIf="canvasVisible"-->
+  <!--[datasets]="radarChartData"-->
+  <!--[labels]="radarChartLabels"-->
+  <!--[chartType]="radarChartType"-->
+  <!--(chartHover)="chartHovered($event)"-->
+  <!--(chartClick)="chartClicked($event)"-->
+  <!--[options]="radarChartOptions"-->
+  <!--&gt;</canvas>-->
+</div>

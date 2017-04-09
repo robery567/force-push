@@ -30,6 +30,12 @@ export class ConsultantsListComponent implements OnInit {
   private selectedCounty: County;
   private selectedSpecialization: Specialization;
 
+  private modelName: string;
+  private keyUpsSinceLastSearch = 0;
+  private lastSearchTrackNumber = 0;
+
+  private maxListLength = 125;
+
   constructor(private consultantsService: ConsultantsService,
               private modalService: NgbModal) {
     this.buildTable();
@@ -38,12 +44,12 @@ export class ConsultantsListComponent implements OnInit {
   ngOnInit() {
     this.consultantsService.getConsultants({
       start: 0,
-      count: 15,
+      count: this.maxListLength,
       county: "170",
       specialization: "429"
     }).subscribe(data => {
       this.consultants = data;
-      // this.openMap(this.consultants[0]);
+      // this.consultantDetails(this.consultants[0]);
     });
     this.consultantsService.getSpecializations().subscribe(data => {
       this.specializations = data;
@@ -125,7 +131,7 @@ export class ConsultantsListComponent implements OnInit {
   }
 
   public doSearch() {
-    const model: any = {start: 0, count: 100};
+    const model: any = {start: 0, count: this.maxListLength};
     if (this.selectedCounty) {
       model.county = this.selectedCounty.id;
     }
@@ -149,6 +155,7 @@ export class ConsultantsListComponent implements OnInit {
           const x = term.length < 2 ? []
             : this.specializations.filter(v => new RegExp(term, 'gi').test(v.name)).splice(0, 10).map(spec => {
               this.selectedSpecialization = null;
+              this.modelName = null;
               return spec;
             });
           // console.log(x);
@@ -164,6 +171,7 @@ export class ConsultantsListComponent implements OnInit {
           const x = term.length < 2 ? []
             : this.counties.filter(v => new RegExp(term, 'gi').test(v.name)).splice(0, 10).map(county => {
               this.selectedCounty = null;
+              this.modelName = null;
               return county;
             });
           // console.log(x);
@@ -175,6 +183,37 @@ export class ConsultantsListComponent implements OnInit {
     const modalRef = this.modalService.open(ConsultantMapComponent, {size: "lg"});
     const consultantDetailsComponent: ConsultantMapComponent = modalRef.componentInstance;
     consultantDetailsComponent.consultant = consultant;
+  }
+
+  public searchNameChanged() {
+    this.keyUpsSinceLastSearch++;
+    if (this.keyUpsSinceLastSearch <= 2) {
+      return;
+    }
+    if (!this.modelName) {
+      return;
+    }
+    this.keyUpsSinceLastSearch = 0;
+    this.selectedSpecialization = null;
+    this.selectedCounty = null;
+    this.modelSpecialization = null;
+    this.modelCounty = null;
+
+    const lstn = this.lastSearchTrackNumber = Math.floor(Math.random() * 1000);
+
+    this.consultantsService.searchByName({
+      name: this.modelName,
+      start: 0,
+      count: this.maxListLength
+    }).subscribe(data => {
+      if (this.lastSearchTrackNumber !== lstn) {
+        console.log("some request arrived too late");
+        return;
+      }
+      this.consultants = data;
+    });
+
+    console.log("search");
   }
 }
 

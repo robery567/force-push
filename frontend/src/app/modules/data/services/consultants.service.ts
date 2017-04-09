@@ -74,7 +74,7 @@ export class ConsultantsService {
         if (consultant.telephone) {
           consultant.phones = consultant.telephone.split(/[,;]/);
           for (let i = 0; i < consultant.phones.length; i++) {
-            consultant.phones[i] = consultant.phones[i].trim();
+            consultant.phones[i] = consultant.phones[i].trim().replace(/\//g, "");
           }
           delete consultant.telephone;
         }
@@ -85,5 +85,42 @@ export class ConsultantsService {
         console.log(exc);
       }
     });
+  }
+
+  public searchByName(model: any): Observable<Consultant[]> {
+    // http://api2.robery.eu/search/name?name=cristi&start=1&count=10
+    let url = `${this.constants.getBackendUri()}search/name?`;
+    if (!model.start) {
+      model.start = 0;
+    }
+    if (!model.count) {
+      model.count = 200;
+    }
+    if (!model.name) {
+      console.log("invalid name for search");
+      return null;
+    }
+    url += `name=${model.name}&`;
+    url += `start=${model.start}&`;
+    url += `count=${model.count}&`;
+    return this.http.get(url).map(resp => resp.json());
+  }
+
+  public getRating(id: number): Observable<any> {
+    // http://api2.robery.eu/get/reviews_average?id=4627
+    const url = `${this.constants.getBackendUri()}get/reviews_average?id=${id}`;
+    return this.http.get(url).map(resp => resp.json());
+  }
+
+  public getRatings(id: number): Observable<any> {
+    // http://api2.robery.eu/get/reviews?id=4627
+    const url = `${this.constants.getBackendUri()}get/reviews?id=${id}`;
+    return this.http.get(url).map(resp => resp.json());
+  }
+
+  public getClients(id: number): Observable<any> {
+    // http://api2.robery.eu/get/clients?id=4627
+    const url = `${this.constants.getBackendUri()}get/clients?id=${id}`;
+    return this.http.get(url).map(resp => resp.json());
   }
 }

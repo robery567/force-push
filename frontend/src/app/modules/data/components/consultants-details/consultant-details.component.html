@@ -38,13 +38,23 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm-4">Notă:</div>
+      <div class="col-sm-8">{{consultant.rating?consultant.rating:"Se încarcă"}}</div>
+    </div>
+    <div class="row" *ngIf="reviewChartVisible">
+      <div class="col-sm-12" >
+        <app-reviews-chart [consultant]="consultant"></app-reviews-chart>
+      </div>
+    </div>
   </div>
   <div class="modal-body" *ngIf="!consultant">
     Loading ...
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Închide</button>
+    <button type="button" class="btn btn-secondary" (click)="toggleRatingGraph()">Vezi grafice recenzii</button>
     <button type="button" class="btn btn-secondary" (click)="openMap()">Vezi pe hartă</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Închide</button>
   </div>
 
 </div>

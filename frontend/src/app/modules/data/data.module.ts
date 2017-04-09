@@ -12,6 +12,7 @@ import {ConstultantsMapComponent} from './pages/constultants-map/constultants-ma
 import {AgmCoreModule} from "angular2-google-maps/core";
 import {ConsultantMapComponent} from './components/consultant-map/consultant-map.component';
 import { DirectionsMapDirective } from './directives/directions-map.directive';
+import { ReviewsChartComponent } from './components/reviews-chart/reviews-chart.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { DirectionsMapDirective } from './directives/directions-map.directive';
     ConsultantDetailsComponent,
     ConstultantsMapComponent,
     ConsultantMapComponent,
-    DirectionsMapDirective
+    DirectionsMapDirective,
+    ReviewsChartComponent
   ],
   providers: [
     ConsultantsService
