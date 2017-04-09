@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ConsultantsService} from "../../services/consultants.service";
 import {Consultant} from "../../models/consultant";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ConsultantMapComponent} from "../../components/consultant-map/consultant-map.component";
+import {ConsultantDetailsComponent} from "../../components/consultants-details/consultant-details.component";
 
 @Component({
   selector: 'app-constultants-map',
@@ -16,7 +19,8 @@ export class ConstultantsMapComponent implements OnInit {
   private consultants: Consultant[] = [];
   private coords: any = [];
 
-  constructor(private consultantsService: ConsultantsService) {
+  constructor(private consultantsService: ConsultantsService,
+              private modalService: NgbModal) {
     this.me = {lat: this.lat, lng: this.lng};
   }
 
@@ -37,6 +41,16 @@ export class ConstultantsMapComponent implements OnInit {
         });
       });
     });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(data => {
+        const coords = data.coords;
+        this.me = {lat: coords.latitude, lng: coords.longitude};
+      }, err => {
+        console.log(err);
+      });
+    } else {
+      console.log("no geolocation available");
+    }
   }
 
   private putOnMap() {
@@ -45,11 +59,18 @@ export class ConstultantsMapComponent implements OnInit {
       if (!consultant.city || !consultant.city[0] || !consultant.city[0].latitude || !consultant.city[0].longitude) {
         return;
       }
-      const lat = consultant.city[0].latitude;
-      const lng = consultant.city[0].longitude;
-      this.coords.push({lat, lng});
+      const lat = parseFloat(consultant.city[0].latitude);
+      const lng = parseFloat(consultant.city[0].longitude);
+      this.coords.push({lat, lng, consultant});
     });
-    console.log(this.coords);
+    // console.log(this.coords);
+  }
+
+  private markerClicked(consultant) {
+
+    const modalRef = this.modalService.open(ConsultantDetailsComponent, {size: "lg"});
+    const consultantDetailsComponent: ConsultantDetailsComponent = modalRef.componentInstance;
+    consultantDetailsComponent.consultant = consultant;
   }
 
 }

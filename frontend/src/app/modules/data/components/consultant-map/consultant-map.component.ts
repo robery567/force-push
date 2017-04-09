@@ -13,8 +13,6 @@ export class ConsultantMapComponent implements OnInit, OnChanges {
   public consultant: Consultant = null;
 
   private me: { lat: number, lng: number };
-  private lat = 45.874654;
-  private lng = 24.751460;
   private zoom = 7;
   private target: { lat: number, lng: number };
   private directionsVisible = false;
