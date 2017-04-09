@@ -209,7 +209,8 @@ $app->get('/get/reviews', function (Request $request) use ($app) {
                     `cc`.`parent_id` AS `parent_id`,
                     `cc`.`client_id` AS `client_id`,
                     `cc`.`client_name` AS `client_name`,
-                    `cr`.`score` AS `score`
+                    `cr`.`score` AS `score`,
+                    `cr`.`date_added` AS `date_added`
                     FROM `consultants_clients` `cc`
                     JOIN `clients_reviews` `cr`
                       ON `cr`.`client_id` = `cc`.`client_id`
