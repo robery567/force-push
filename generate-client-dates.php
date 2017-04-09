@@ -9,7 +9,7 @@
 $DB = new MySQLi("localhost", "root", "parola", "consulting");
 
 $sql = "
-        SELECT *
+        SELECT `client_id`
         FROM `consultants_clients`
 ";
 $consultants = $DB->query($sql)->fetch_all(MYSQLI_ASSOC);
