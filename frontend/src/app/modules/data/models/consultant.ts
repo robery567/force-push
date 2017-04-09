@@ -6,4 +6,5 @@ export interface Consultant {
   counties: County[];
   legitimation: string;
   specializations: Specialization[];
+  city: any[];
 }

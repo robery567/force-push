@@ -45,20 +45,20 @@
 
 <div class="card">
   <div class="card-block">
-    <table class="table">
+    <table class="table" *ngIf="consultants && consultants.length">
       <thead class="thead-default">
       <tr>
-        <th>#</th>
-        <th *ngFor="let column of columns">{{column.title}}</th>
+        <th class="hidden-sm-down">#</th>
+        <th *ngFor="let column of columns" [ngClass]="{'hidden-md-down': column['hidden-md-down']}">{{column.title}}</th>
         <th>Acțiuni</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let consultant of consultants; let i = index">
-        <td>{{i+1}}</td>
-        <td *ngFor="let field of columns">{{format(consultant, field)}}</td>
+        <td class="hidden-sm-down">{{i+1}}</td>
+        <td *ngFor="let field of columns" [ngClass]="{'hidden-md-down': field['hidden-md-down']}">{{format(consultant, field)}}</td>
         <td>
-          <div style="min-width: 200px;">
+          <div class="buttons-container">
             <button class="btn btn-outline-primary view"
                     (click)="consultantDetails(consultant)">
               <i class="fa fa-info" aria-hidden="true"></i>
@@ -76,5 +76,14 @@
       </tr>
       </tbody>
     </table>
+    <!--<div  class="row">-->
+
+    <div class="alert alert-info" role="alert" *ngIf="!consultants">
+      Se încarcă ...
+    </div>
+    <div class="alert alert-warning" role="alert" *ngIf="consultants && !consultants.length">
+      Nu au fost găsiți consultanți.
+    </div>
+    <!--</div>-->
   </div>
 </div>

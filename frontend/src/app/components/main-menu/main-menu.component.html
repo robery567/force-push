@@ -1,24 +1,24 @@
 <nav class="navbar navbar-toggleable-md navbar-dark red">
   <div class="container">
-        <button class="navbar-toggler navbar-toggler-right" type="button"
-               aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation"
-        (click)="toggleMenu()">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" [routerLink]="['/home']">Consultants Repository</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation"
+            (click)="toggleMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" [routerLink]="['/home']">Consultants Repository</a>
 
-        <div class="collapse navbar-collapse" [ngClass]="{show: menuVisible}" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse" [ngClass]="{show: menuVisible}" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
 
-            <li *ngFor="let menuItem of menuItems" class="nav-item" [routerLinkActive]="['active']">
-              <a class="nav-link" [routerLink]="menuItem.routerLink" (click)="toggleMenu();">{{menuItem.title}}</a>
-            </li>
-          </ul>
-          <!--<form class="form-inline my-2 my-lg-0">-->
-          <!--<input class="form-control mr-sm-2" type="text" placeholder="Search">-->
-          <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-          <!--</form>-->
-        </div>
+        <li *ngFor="let menuItem of menuItems" class="nav-item" [routerLinkActive]="['active']">
+          <a class="nav-link" [routerLink]="menuItem.routerLink" (click)="toggleMenu();">{{menuItem.title}}</a>
+        </li>
+      </ul>
+      <!--<form class="form-inline my-2 my-lg-0">-->
+      <!--<input class="form-control mr-sm-2" type="text" placeholder="Search">-->
+      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+      <!--</form>-->
+    </div>
   </div>
 </nav>
