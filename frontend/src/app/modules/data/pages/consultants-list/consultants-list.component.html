@@ -67,7 +67,7 @@
         <th class="hidden-sm-down">#</th>
         <th *ngFor="let column of columns" [ngClass]="{'hidden-md-down': column['hidden-md-down']}">
           <span *ngIf="!column.sortable">{{column.title}}</span>
-          <a *ngIf="column.sortable" (click)="toggleColumnOrder(column)">{{column.title}}</a>
+          <a *ngIf="column.sortable" (click)="toggleColumnOrder(column)" class="sortable-header">{{column.title}}</a>
         </th>
         <th>Acțiuni</th>
       </tr>

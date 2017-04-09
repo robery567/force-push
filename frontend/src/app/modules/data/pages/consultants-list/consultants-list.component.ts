@@ -20,7 +20,7 @@ export class ConsultantsListComponent implements OnInit {
 
   private columns: TableColumn[] = [];
 
-  private consultants: Consultant[] = [];
+  private consultants: Consultant[] = null;
 
   private counties: County[] = [];
 
@@ -190,8 +190,8 @@ export class ConsultantsListComponent implements OnInit {
 
   public openMap(consultant: Consultant) {
     const modalRef = this.modalService.open(ConsultantMapComponent, {size: "lg"});
-    const consultantDetailsComponent: ConsultantMapComponent = modalRef.componentInstance;
-    consultantDetailsComponent.consultant = consultant;
+    const consultantMapComponent: ConsultantMapComponent = modalRef.componentInstance;
+    consultantMapComponent.consultant = consultant;
   }
 
   public searchNameChanged() {
