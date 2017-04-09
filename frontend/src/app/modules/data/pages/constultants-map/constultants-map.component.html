@@ -1,8 +1,15 @@
-<app-chart-1></app-chart-1>
+
 <div class="card map-card">
   <div class="card-block map-container">
     <sebm-google-map [latitude]="me.lat" [longitude]="me.lng" [zoom]="zoom" class="map">
       <sebm-google-map-marker [latitude]="lat" [longitude]="lng" [label]="'M'" [draggable]="true" [title]="'12333'"></sebm-google-map-marker>
+
+      <sebm-google-map-marker
+        *ngFor="let coord of coords"
+        [label]="'C'"
+        [latitude]="coord.lat"
+        [longitude]="coord.lng">
+      </sebm-google-map-marker>
     </sebm-google-map>
   </div>
 </div>
