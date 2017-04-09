@@ -188,7 +188,7 @@ $app->get('/search/name', function (Request $request) use ($app) {
                           ON `s`.`id` = `cs`.`specialization_id`
                         WHERE `cs`.`parent_id` = ?";
 
-        $data[$consultandId]['specializations'] = $app['db']->fetchAll($sql, array((int)$data[$consultandId]['counties'][0]['id']));
+        $data[$consultandId]['specializations'] = $app['db']->fetchAll($sql, array((int)$consultantData['id']));
 
         $sql = "SELECT
                        `name`,
