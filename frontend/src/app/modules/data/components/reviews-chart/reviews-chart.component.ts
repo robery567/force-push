@@ -13,7 +13,7 @@ export class ReviewsChartComponent implements OnInit {
   public consultant: Consultant;
   @ViewChild("unChart") private _chart;
 
-  private canvasVisible: boolean;
+  public canvasVisible: boolean;
 
   private notes: any = {};
 

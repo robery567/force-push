@@ -6,8 +6,8 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent implements OnInit {
-  private menuItems: MenuItem[] = [];
-  private menuVisible = false;
+  public menuItems: MenuItem[] = [];
+  public menuVisible = false;
 
   constructor() {
     this.buildMenu();

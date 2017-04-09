@@ -25,13 +25,13 @@ export class ConsultantsListComponent implements OnInit {
   private counties: County[] = [];
 
   private specializations: Specialization[] = [];
-  private modelCounty: any;
-  private modelSpecialization: any;
+  public modelCounty: any;
+  public modelSpecialization: any;
   private selectedCounty: County;
   private selectedSpecialization: Specialization;
   private sortByScoreOrder = "desc";
 
-  private modelName: string;
+  public modelName: string;
   private keyUpsSinceLastSearch = 0;
   private lastSearchTrackNumber = 0;
 

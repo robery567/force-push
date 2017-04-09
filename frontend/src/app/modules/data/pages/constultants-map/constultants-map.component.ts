@@ -12,12 +12,12 @@ import {ConsultantDetailsComponent} from "../../components/consultants-details/c
 })
 export class ConstultantsMapComponent implements OnInit {
 
-  private me: { lat: number, lng: number };
+  public me: { lat: number, lng: number };
   private lat = 45.874654;
   private lng = 24.751460;
-  private zoom = 7;
+  public zoom = 7;
   private consultants: Consultant[] = [];
-  private coords: any = [];
+  public coords: any = [];
 
   constructor(private consultantsService: ConsultantsService,
               private modalService: NgbModal) {
