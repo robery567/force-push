@@ -256,7 +256,7 @@ $app->get('/get/clients', function (Request $request) use ($app) {
     $data = $app['db']->fetchAll($sql, array((int)$consultantId));
 
     return $app->json($data);
-})->bind('getClients);
+})->bind('getClients');
 
 $app->after(function (Request $request, Response $response) {
     $response->headers->set('Access-Control-Allow-Origin', '*');
