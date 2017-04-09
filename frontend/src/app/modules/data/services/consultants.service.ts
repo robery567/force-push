@@ -71,12 +71,18 @@ export class ConsultantsService {
 
     consultants.forEach(consultant => {
       try {
+        if (!consultant.score) {
+          consultant.score = 0;
+        }
         if (consultant.telephone) {
           consultant.phones = consultant.telephone.split(/[,;]/);
           for (let i = 0; i < consultant.phones.length; i++) {
             consultant.phones[i] = consultant.phones[i].trim().replace(/\//g, "");
           }
           delete consultant.telephone;
+          if (consultant.score) {
+            consultant.score = Math.floor(consultant.score * 100) / 100;
+          }
         }
         for (let i = 0; i < consultant.specializations.length; i++) {
           consultant.specializations[i].name = consultant.specializations[i].name.replace(/\( /, '(');

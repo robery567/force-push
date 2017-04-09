@@ -2,7 +2,6 @@
   {{r.name}}
 </template>
 
-
 <h2 class="page-title">Listă consultanți</h2>
 <div class="row">
   <div class="col-sm-10 col-md-8 col-xl-5">
@@ -66,7 +65,10 @@
       <thead class="thead-default">
       <tr>
         <th class="hidden-sm-down">#</th>
-        <th *ngFor="let column of columns" [ngClass]="{'hidden-md-down': column['hidden-md-down']}">{{column.title}}</th>
+        <th *ngFor="let column of columns" [ngClass]="{'hidden-md-down': column['hidden-md-down']}">
+          <span *ngIf="!column.sortable">{{column.title}}</span>
+          <a *ngIf="column.sortable" (click)="toggleColumnOrder(column)">{{column.title}}</a>
+        </th>
         <th>Acțiuni</th>
       </tr>
       </thead>

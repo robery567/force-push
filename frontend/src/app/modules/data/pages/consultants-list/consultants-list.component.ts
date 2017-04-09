@@ -29,6 +29,7 @@ export class ConsultantsListComponent implements OnInit {
   private modelSpecialization: any;
   private selectedCounty: County;
   private selectedSpecialization: Specialization;
+  private sortByScoreOrder = "desc";
 
   private modelName: string;
   private keyUpsSinceLastSearch = 0;
@@ -46,7 +47,8 @@ export class ConsultantsListComponent implements OnInit {
       start: 0,
       count: this.maxListLength,
       county: "170",
-      specialization: "429"
+      specialization: "429",
+      order_by_score: this.sortByScoreOrder
     }).subscribe(data => {
       this.consultants = data;
       // this.consultantDetails(this.consultants[0]);
@@ -81,6 +83,12 @@ export class ConsultantsListComponent implements OnInit {
       key: "specializations",
       "hidden-md-down": true
     });
+    this.columns.push({
+      title: "Notă",
+      key: "score",
+      sortable: true
+      // "hidden-md-down": true
+    });
   }
 
   public consultantDetails(consultant: Consultant): void {
@@ -91,15 +99,15 @@ export class ConsultantsListComponent implements OnInit {
 
   public format(consultant: Consultant, column: TableColumn): string {
 
+    let value: string;
+    if (column.key === "specializations" || column.key === 'counties') {
+      value = consultant[column.key].map(nt => nt.name).join(", ");
+    } else {
+      value = consultant[column.key];
+    }
+    const maxVisibleLength = 100;
     try {
-      let value: string;
-      if (column.key === "specializations" || column.key === 'counties') {
-        value = consultant[column.key].map(nt => nt.name).join(", ");
-      } else {
-        value = consultant[column.key];
-      }
-      const maxVisibleLength = 300;
-      if (value.length > maxVisibleLength) {
+      if (value && value.length > maxVisibleLength) {
         value = value.substr(0, maxVisibleLength);
         value = value.trim();
         while (value.endsWith(',')) {
@@ -138,6 +146,7 @@ export class ConsultantsListComponent implements OnInit {
     if (this.selectedSpecialization) {
       model.specialization = this.selectedSpecialization.id;
     }
+    model["order_by_score"] = this.sortByScoreOrder;
 
     this.consultantsService.getConsultants(model).subscribe(data => {
       this.consultants = data;
@@ -204,7 +213,8 @@ export class ConsultantsListComponent implements OnInit {
     this.consultantsService.searchByName({
       name: this.modelName,
       start: 0,
-      count: this.maxListLength
+      count: this.maxListLength,
+      order_by_score: this.sortByScoreOrder
     }).subscribe(data => {
       if (this.lastSearchTrackNumber !== lstn) {
         console.log("some request arrived too late");
@@ -215,10 +225,18 @@ export class ConsultantsListComponent implements OnInit {
 
     console.log("search");
   }
+
+  public toggleColumnOrder(column) {
+    if (column.key === "score") {
+      this.sortByScoreOrder = (this.sortByScoreOrder == "asc" ? "desc" : "asc");
+      this.doSearch();
+    }
+  }
 }
 
 class TableColumn {
   title: string;
   key: string;
+  sortable?: boolean;
   "hidden-md-down"?: boolean;
 }
