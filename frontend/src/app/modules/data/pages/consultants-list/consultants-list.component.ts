@@ -18,9 +18,9 @@ import {ConsultantMapComponent} from "../../components/consultant-map/consultant
 })
 export class ConsultantsListComponent implements OnInit {
 
-  private columns: TableColumn[] = [];
+  public columns: TableColumn[] = [];
 
-  private consultants: Consultant[] = null;
+  public consultants: Consultant[] = null;
 
   private counties: County[] = [];
 
@@ -154,9 +154,9 @@ export class ConsultantsListComponent implements OnInit {
     });
   }
 
-  getNameFormatter = (obj: any) => obj.name;
+  public getNameFormatter = (obj: any) => obj.name;
 
-  searchSpecialization = (text$: Observable<string>) =>
+  public searchSpecialization = (text$: Observable<string>) =>
     text$
       .debounceTime(200)
       .distinctUntilChanged()
@@ -172,7 +172,7 @@ export class ConsultantsListComponent implements OnInit {
         }
       )
 
-  searchCounty = (text$: Observable<string>) =>
+  public searchCounty = (text$: Observable<string>) =>
     text$
       .debounceTime(200)
       .distinctUntilChanged()
