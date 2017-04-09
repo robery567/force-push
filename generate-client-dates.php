@@ -29,7 +29,6 @@ foreach ($consultants as $client) {
     }
 
     $dateToInsert = $year . "-" . $month . "-" . $day;
-    $dateToInsert = strtotime($dateToInsert);
 
     file_put_contents("clients-dates.sql", "UPDATE `consultants_clients` SET `date_added` = '{$dateToInsert}' WHERE `client_id` = '{$client['client_id']}';\n", FILE_APPEND | LOCK_EX);
 
