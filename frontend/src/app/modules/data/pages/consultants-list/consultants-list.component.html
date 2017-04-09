@@ -42,6 +42,23 @@
     <button class="btn btn-primary" (click)="doSearch()">Caută</button>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-10 col-md-8 col-xl-5">
+    <div class="row form-group">
+      <label for="nameInput" class="col-form-label">Nume:</label>
+      <div class="col-sm-9">
+        <input type="text"
+               id="nameInput"
+               class="form-control"
+               placeholder=""
+               [(ngModel)]="modelName"
+               (keyup)="searchNameChanged()"
+        >
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <div class="card">
   <div class="card-block">
