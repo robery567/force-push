@@ -53,6 +53,7 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
     $county = (int)$request->query->get('county');
     $offset = (int)$request->query->get('start');
     $count = (int)$request->query->get('count');
+    $orderBy = $request->query->get('order_by_score');
 
     $sqlParameters = array();
     if (!empty($specialization)) {
@@ -64,6 +65,8 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
         $sql .= " AND `cc`.`county` = ?";
         array_push($sqlParameters, $county);
     }
+
+    $sql .= " GROUP BY `c`.`id`";
 
     if ($offset >= 0 && !empty($count)) {
         $sql .= " LIMIT {$offset}, {$count}";
@@ -101,6 +104,37 @@ $app->get('/get/consultants', function (Request $request) use ($app) {
                   AND `county_seat` = 1";
 
         $data[$consultandId]['city'] = $app['db']->fetchAll($sql, array((int)$data[$consultandId]['counties'][0]['id']));
+
+        if (!empty($orderBy)) {
+            $sql = "SELECT 
+                    `cc`.`parent_id` AS `parent_id`,
+                    AVG(`cr`.`score`) AS `score`
+                    FROM `consultants_clients` `cc`
+                    JOIN `clients_reviews` `cr`
+                      ON `cr`.`client_id` = `cc`.`client_id`
+                    WHERE 
+                          `cc`.`review_sent` = 1
+                      AND `cc`.`parent_id` = '{$consultantData['id']}'";
+
+            $fetchedData = $app['db']->fetchAssoc($sql);
+            $data[$consultandId]['score'] = $fetchedData['score'];
+        }
+    }
+
+    if (!empty($orderBy)) {
+        if (strtolower($orderBy) == "asc") {
+            usort($data, function ($a, $b) {
+                return $a['score'] <=> $b['score'];
+            });
+        } else if (strtolower($orderBy) == "desc") {
+            usort($data, function ($a, $b) {
+                if ($a['score'] == $b['score']) {
+                    return 0;
+                }
+
+                return $a['score'] < $b['score'] ? 1 : -1;
+            });
+        }
     }
 
     return $app->json($data);
@@ -126,6 +160,7 @@ $app->get('/search/name', function (Request $request) use ($app) {
               JOIN `counties`
                 ON `counties`.`id` = `cc`.`county`
               WHERE `c`.`name` LIKE '%$name%'
+              GROUP BY `c`.`id`
             ";
 
     if ($offset >= 0 && !empty($count)) {
