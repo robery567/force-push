@@ -26,6 +26,6 @@ Our database is located into the sql folder into an sql file named consulting.sq
 # Installation instructions
 * Import the sql file located into the sql folder named **consulting.sql** into the **mysql-server**
 * Configure the API by editing the **app.file** located in **api/src/** folder and fill the **mysql_read** array with your database
-* **And that's it, the API should be fully functional :)
+* **And that's it, the API should be fully functional :)**
 
 
