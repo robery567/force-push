@@ -22,6 +22,9 @@ Our database is located into the sql folder into an sql file named consulting.sq
 * public/private keys
 
 # Frontend Requirements:
+* npm install -g @angular/cli
+* npm install
+* ng serve
 
 # Installation instructions
 * Import the sql file located into the sql folder named **consulting.sql** into the **mysql-server**
